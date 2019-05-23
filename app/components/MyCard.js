@@ -1,6 +1,8 @@
 import React from "react";
-import { Card, CardActions, CardHeader, CardText } from "material-ui/Card";
+import { Card, CardActions, CardHeader, CardMedia,  CardTitle, CardText } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
+import fetchHelloRequest from '../actions/data'
+import logo from '../assets/img2.jpg';
 
 const data = [
   { index: 0, text: "Hi" },
@@ -11,8 +13,22 @@ const data = [
 ];
 
 const handleClick = () => {
-    console.log('Clicked!!!');
+    // fetchHelloRequest();
 };
+
+
+
+function mapStateToProps(state) {
+  return {
+    message: state.data.message
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getHello: () => dispatch(fetchHelloRequest())
+  };
+}
 
 const CardExampleExpandable = () => (
   <Card>
@@ -21,7 +37,13 @@ const CardExampleExpandable = () => (
       subtitle="Subtitle"
       actAsExpander={true}
       showExpandableButton={true}
+
     />
+    <CardMedia
+      overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+    >
+      <img src={logo} alt="" />
+    </CardMedia>
     <CardActions>
       <FlatButton label="Previous" onClick={() => handleClick()} />
       <FlatButton label="Next" onClick={() => handleClick()} />

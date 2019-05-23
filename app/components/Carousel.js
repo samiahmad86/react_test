@@ -5,6 +5,9 @@ import styles from "./Carousel.css";
 import { fetchHelloRequest } from "../actions/data";
 import MyCard from "./MyCard";
 
+
+
+
 class Carousel extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +21,11 @@ class Carousel extends Component {
     return (
       <div>
         <div className={styles.container}>
-          <h2>Carousel</h2>
+          <h2 >Carousel</h2>
           <a className={styles.logo} />
-          <h1>{this.props.message}</h1>
-          <MyCard />
+          <div className={styles.carousel}>
+            <MyCard />
+          </div>
         </div>
       </div>
     );
