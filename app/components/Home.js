@@ -18,7 +18,6 @@ class Home extends Component {
     return (
       <div>
         <div className={styles.container}>
-          <h2>Home</h2>
           <a className={styles.logo} />
           <h1>{this.props.message}</h1>
         </div>

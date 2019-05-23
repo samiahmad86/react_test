@@ -1,30 +1,71 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
 import styles from "./Carousel.css";
-import { fetchHelloRequest } from "../actions/data";
+import { fetchHelloRequest, getAllItemsRequest } from "../actions/data";
 import MyCard from "./MyCard";
-
-
+import CheckboxList from "./CheckboxList";
 
 
 class Carousel extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    currentItemId: 0,
+    reachedWardrobe: false
   }
 
   componentDidMount() {
-    this.props.getHello();
+    this.props.getAllItems();
   }
 
-  render() {
+  getPreviousItem = () => {
+      if (this.state.currentItemId - 1 >= 0) {
+        this.setState( { reachedWardrobe: false, currentItemId: this.state.currentItemId - 1 } );
+      }
+  
+  }
+
+  getNextItem = () => {
+    if (this.state.currentItemId + 1 < this.props.totalItem) {
+      this.setState( { currentItemId: this.state.currentItemId + 1 } );
+    }
+    else {
+      this.setState({reachedWardrobe: true})
+    }
+  }
+
+
+
+
+  render() { 
+    const allContent = this.props.contentData;
+    let content;
+    if (allContent.length === 0) {
+      content = {
+        title: "Default Value",
+        category: "Default Category",
+        options: [
+          { index: 0, text: "Hi" },
+          { index: 1, text: "my" },
+          { index: 2, text: "name" },
+          { index: 3, text: "is" },
+          { index: 4, text: "Developer" }
+        ]
+      }
+    } else {
+      content = allContent[this.state.currentItemId];
+    }
     return (
       <div>
         <div className={styles.container}>
           <h2 >Carousel</h2>
           <a className={styles.logo} />
           <div className={styles.carousel}>
-            <MyCard />
+
+            <MyCard content={content} 
+                    previousItem = {this.getPreviousItem}
+                    nextItem = {this.getNextItem}
+            />
+            <CheckboxList />
           </div>
         </div>
       </div>
@@ -34,13 +75,14 @@ class Carousel extends Component {
 
 function mapStateToProps(state) {
   return {
-    message: state.data.message
+    contentData: state.data.data,
+    totalItem: state.data.data.length
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHello: () => dispatch(fetchHelloRequest())
+    getAllItems: () =>  dispatch(getAllItemsRequest())
   };
 }
 

@@ -1,8 +1,18 @@
 export const FETCH_HELLO = "FETCH_HELLO";
+export const FETCH_ALL_ITEM = "FETCH_ALL_ITEM";
 
 export function fetchHello(payload) {
+  console.log(payload);
   return {
     type: FETCH_HELLO,
+    payload
+  };
+}
+
+
+export function fetchAllItems(payload) {
+  return {
+    type: FETCH_ALL_ITEM,
     payload
   };
 }
@@ -16,6 +26,18 @@ export function fetchHelloRequest() {
       });
   };
 }
+
+export function getAllItemsRequest() {
+  return dispatch => {
+    return fetch("/api/items")
+      .then(res => res.json())
+      .then(res => {
+        dispatch(fetchAllItems(res.items));
+      });
+  };
+}
+
+
 
 // action for sending data to server
 // data object would look like this:
@@ -36,6 +58,8 @@ export function sendDataRequest(data) {
     });
     return fetch(request)
       .then(res => res.json())
-      .then(res => console.log(res));
+      .then(res => {
+        dispatch(fetchData(res.express));
+      });
+      }
   };
-}
