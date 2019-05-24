@@ -7,7 +7,6 @@ import {sendDataRequest} from "../actions/data"
 const styles = {
   block: {
     minWidth: "50%",
-    height: "500px",
     padding: "50px 50px",
     backgroundColor: "white",
     overflow: "scroll"

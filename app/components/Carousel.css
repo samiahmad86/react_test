@@ -1,7 +1,7 @@
 .container {
-  margin: 0 auto;
+  margin: auto;
   padding: 40px;
-  width: 80%;
+  width: 100%;
   color: #333;
   background: #419be0;
   text-align: center;
@@ -108,10 +108,11 @@ h3 {
 } */
 
 .carousel {        
-    width:  50%;
+    width:  70%;
     text-align: center;
     align-content: center;
     margin: auto;
     display: flex;
+    flex-flow: nowrap;
 
 };
