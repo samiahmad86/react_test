@@ -63,7 +63,8 @@ app.get('/api/items/category/:category', (req, res) => {
 
 app.post('/api/items', (req, res) => {
   const clothes = req.body;
-  if(clothes && clothes.top && clothes.bottom && clothes.head && clothes.feet) {
+  // if(clothes && clothes.top && clothes.bottom && clothes.head && clothes.feet) {
+    if (clothes.length !== 0) {
     res.send({ message: 'Well done!' });
   } else {
     res.send(422);

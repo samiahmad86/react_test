@@ -1,16 +1,18 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+
 import { Link } from "react-router";
 import { connect } from "react-redux";
 import styles from "./Carousel.css";
 import { fetchHelloRequest, getAllItemsRequest } from "../actions/data";
 import MyCard from "./MyCard";
-import CheckboxList from "./CheckboxList";
+import CheckboxExampleSimple from "./CheckboxExampleSimple";
 
 
 class Carousel extends Component {
   state = {
     currentItemId: 0,
-    reachedWardrobe: false
+    reachedWardrobe: false,
+    selectedItem : []
   }
 
   componentDidMount() {
@@ -24,6 +26,14 @@ class Carousel extends Component {
   
   }
 
+  setCheckedItems = (newItem) => {
+    const newObj = this.state.selectedItem;
+    newObj.push(newItem)
+    this.setState({
+      selected: [...this.state.selectedItem, newObj]
+    })
+  }
+
   getNextItem = () => {
     if (this.state.currentItemId + 1 < this.props.totalItem) {
       this.setState( { currentItemId: this.state.currentItemId + 1 } );
@@ -32,8 +42,6 @@ class Carousel extends Component {
       this.setState({reachedWardrobe: true})
     }
   }
-
-
 
 
   render() { 
@@ -65,7 +73,7 @@ class Carousel extends Component {
                     previousItem = {this.getPreviousItem}
                     nextItem = {this.getNextItem}
             />
-            <CheckboxList />
+            <CheckboxExampleSimple items={this.props.selectedItem} />
           </div>
         </div>
       </div>
@@ -76,7 +84,8 @@ class Carousel extends Component {
 function mapStateToProps(state) {
   return {
     contentData: state.data.data,
-    totalItem: state.data.data.length
+    totalItem: state.data.data.length,
+    selectedItem: state.data.selectedItem
   };
 }
 

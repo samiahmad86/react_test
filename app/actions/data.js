@@ -1,5 +1,6 @@
 export const FETCH_HELLO = "FETCH_HELLO";
 export const FETCH_ALL_ITEM = "FETCH_ALL_ITEM";
+export const ITEM_SELECTED = "ITEM_SELECTED";
 
 export function fetchHello(payload) {
   console.log(payload);
@@ -57,9 +58,9 @@ export function sendDataRequest(data) {
       headers: myHeaders
     });
     return fetch(request)
-      .then(res => res.json())
-      .then(res => {
-        dispatch(fetchData(res.express));
-      });
-      }
-  };
+    .then(res => res.json())
+    .then(res => {
+      alert(res.message);
+    })
+    };
+}
